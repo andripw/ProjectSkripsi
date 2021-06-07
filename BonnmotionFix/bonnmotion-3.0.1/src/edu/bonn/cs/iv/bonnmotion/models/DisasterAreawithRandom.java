@@ -1239,79 +1239,101 @@ public class DisasterAreawithRandom extends RandomSpeedBase {
                         if (movePhase == 0) {
                             //random movement to receive injured
                             maxpause = oldmaxpause;
-                            dst = new Position(245, 300);
+                            dst = new Position(450, 500);
                             cycle.add(dst);
                             ++movePhase;
                         } else {
                             if (movePhase == 1) {
                                 //move via patients waiting for treatment area exit to casualties clearing station entry
-                                maxpause = 120.0;
+                                maxpause = 200;
                                 for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                    if (Math.random() >= 0.25) {//to area 2
-                                        dst = new Position(245, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 3
-                                        dst = new Position(45, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 0
-                                        dst = new Position(245, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 1
-                                        dst = new Position(45, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    }
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
                                 }
+                                ++movePhase;
                             } else {
                                 if (movePhase == 2) {
                                     //return to patients waiting for treatment area exit
                                     maxpause = 120.0;
-                                    for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                        if (Math.random() >= 0.25) {//to area 3
-                                            dst = new Position(45, 150);
+                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                        if (Math.random() >= 0.25) {//to area 1
+                                            dst = new Position(450, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
                                         } else if (Math.random() >= 0.25) {//to area 2
-                                            dst = new Position(245, 150);
+                                            dst = new Position(450, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
+                                        } else if (Math.random() >= 0.25) {//to area 3
+                                            dst = new Position(55, 105);
+                                            cycle.add(dst);
                                         } else if (Math.random() >= 0.25) {//to area 0
-                                            dst = new Position(245, 300);
+                                            dst = new Position(450, 500);
                                             cycle.add(dst);
-                                            ++movePhase;
-                                        } else if (Math.random() >= 0.25) {//to area 1
-                                            dst = new Position(45, 300);
-                                            cycle.add(dst);
-                                            ++movePhase;
                                         }
                                     }
+                                    ++movePhase;
                                 } else {
                                     if (movePhase == 3) {
                                         maxpause = 120.0;
                                         for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                            if (Math.random() >= 0.25) {//to area 0
-                                                dst = new Position(245, 300);
+                                            //skip last entry, because you are already there
+                                            if (Math.random() >= 0.25) {//to area 2
+                                                dst = new Position(450, 105);
                                                 cycle.add(dst);
-                                                ++movePhase;
-                                            } else if (Math.random() >= 0.25) {//to area 2
-                                                dst = new Position(245, 150);
-                                                cycle.add(dst);
-                                                ++movePhase;
                                             } else if (Math.random() >= 0.25) {//to area 3
-                                                dst = new Position(45, 150);
+                                                dst = new Position(55, 105);
                                                 cycle.add(dst);
-                                                ++movePhase;
+                                            } else if (Math.random() >= 0.25) {//to area 0
+                                                dst = new Position(450, 500);
+                                                cycle.add(dst);
                                             } else if (Math.random() >= 0.25) {//to area 1
-                                                dst = new Position(45, 300);
+                                                dst = new Position(55, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
+                                            }
+                                        }
+                                        ++movePhase;
+                                    } else {
+                                        if (movePhase == 4) {
+                                            maxpause = 120;
+                                            for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
+                                                //skip last entry, because you are already there
+                                                if (Math.random() >= 0.25) {//to area 3
+                                                    dst = new Position(55, 105);
+                                                    cycle.add(dst);
+                                                } else if (Math.random() >= 0.25) {//to area 0
+                                                    dst = new Position(450, 500);
+                                                    cycle.add(dst);
+                                                } else if (Math.random() >= 0.25) {//to area 1
+                                                    dst = new Position(55, 500);
+                                                    cycle.add(dst);
+                                                } else if (Math.random() >= 0.25) {//to area 2
+                                                    dst = new Position(450, 105);
+                                                    cycle.add(dst);
+                                                }
+                                            }
+                                            ++movePhase;
+                                        } else {
+                                            if (movePhase == 5) {
+                                                maxpause = 120;
+                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
+                                                    //skip last entry, because you are already there
+                                                    if (Math.random() >= 0.25) {//to area 0
+                                                        dst = new Position(450, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 1
+                                                        dst = new Position(55, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 2
+                                                        dst = new Position(450, 105);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 3
+                                                        dst = new Position(55, 105);
+                                                        cycle.add(dst);
+                                                    }
+                                                }
+                                                movePhase = 0;
                                             }
                                         }
                                     }
-                                    movePhase = 0;
                                 }
                             }
                         }
@@ -1328,104 +1350,100 @@ public class DisasterAreawithRandom extends RandomSpeedBase {
                         if (movePhase == 0) {
                             //random movement to receive injured
                             maxpause = oldmaxpause;
-                            dst = new Position(45, 300);
+                            dst = new Position(55, 500);
                             cycle.add(dst);
                             ++movePhase;
                         } else {
                             if (movePhase == 1) {
                                 //move via patients waiting for treatment area exit to casualties clearing station entry
-                                maxpause = 120.0;
+                                maxpause = 200;
                                 for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                    if (Math.random() >= 0.25) {//to area 1
-                                        dst = new Position(45, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 2
-                                        dst = new Position(245, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 3
-                                        dst = new Position(45, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 0
-                                        dst = new Position(245, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    }
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
                                 }
+                                ++movePhase;
                             } else {
                                 if (movePhase == 2) {
                                     //return to patients waiting for treatment area exit
                                     maxpause = 120.0;
-                                    for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                        //skip last entry, because you are already there
-                                        if (Math.random() >= 0.25) {//to area 2
-                                            dst = new Position(245, 150);
+                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                        if (Math.random() >= 0.25) {//to area 1
+                                            dst = new Position(450, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
+                                        } else if (Math.random() >= 0.25) {//to area 2
+                                            dst = new Position(450, 105);
+                                            cycle.add(dst);
                                         } else if (Math.random() >= 0.25) {//to area 3
-                                            dst = new Position(45, 150);
+                                            dst = new Position(55, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
                                         } else if (Math.random() >= 0.25) {//to area 0
-                                            dst = new Position(245, 300);
+                                            dst = new Position(450, 500);
                                             cycle.add(dst);
-                                            ++movePhase;
-                                        } else if (Math.random() >= 0.25) {//to area 1
-                                            dst = new Position(45, 300);
-                                            cycle.add(dst);
-                                            ++movePhase;
                                         }
                                     }
+                                    ++movePhase;
                                 } else {
                                     if (movePhase == 3) {
                                         maxpause = 120.0;
                                         for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
                                             //skip last entry, because you are already there
-                                            if (Math.random() >= 0.25) {//to area 3
-                                                dst = new Position(45, 150);
+                                            if (Math.random() >= 0.25) {//to area 2
+                                                dst = new Position(450, 105);
                                                 cycle.add(dst);
-                                                ++movePhase;
+                                            } else if (Math.random() >= 0.25) {//to area 3
+                                                dst = new Position(55, 105);
+                                                cycle.add(dst);
                                             } else if (Math.random() >= 0.25) {//to area 0
-                                                dst = new Position(245, 300);
+                                                dst = new Position(450, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
                                             } else if (Math.random() >= 0.25) {//to area 1
-                                                dst = new Position(45, 300);
+                                                dst = new Position(55, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
-                                            } else if (Math.random() >= 0.25) {//to area 2
-                                                dst = new Position(245, 150);
-                                                cycle.add(dst);
-                                                ++movePhase;
                                             }
                                         }
+                                        ++movePhase;
                                     } else {
                                         if (movePhase == 4) {
                                             maxpause = 120;
                                             for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
                                                 //skip last entry, because you are already there
-                                                if (Math.random() >= 0.25) {//to area 0
-                                                    dst = new Position(245, 300);
+                                                if (Math.random() >= 0.25) {//to area 3
+                                                    dst = new Position(55, 105);
                                                     cycle.add(dst);
-                                                    ++movePhase;
+                                                } else if (Math.random() >= 0.25) {//to area 0
+                                                    dst = new Position(450, 500);
+                                                    cycle.add(dst);
                                                 } else if (Math.random() >= 0.25) {//to area 1
-                                                    dst = new Position(45, 300);
+                                                    dst = new Position(55, 500);
                                                     cycle.add(dst);
-                                                    ++movePhase;
                                                 } else if (Math.random() >= 0.25) {//to area 2
-                                                    dst = new Position(245, 150);
+                                                    dst = new Position(450, 105);
                                                     cycle.add(dst);
-                                                    ++movePhase;
-                                                } else if (Math.random() >= 0.25) {//to area 3
-                                                    dst = new Position(45, 150);
-                                                    cycle.add(dst);
-                                                    ++movePhase;
                                                 }
                                             }
+                                            ++movePhase;
+                                        } else {
+                                            if (movePhase == 5) {
+                                                maxpause = 120;
+                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
+                                                    //skip last entry, because you are already there
+                                                    if (Math.random() >= 0.25) {//to area 0
+                                                        dst = new Position(450, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 1
+                                                        dst = new Position(55, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 2
+                                                        dst = new Position(450, 105);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 3
+                                                        dst = new Position(55, 105);
+                                                        cycle.add(dst);
+                                                    }
+                                                }
+                                                movePhase = 0;
+                                            }
                                         }
-                                        movePhase = 0;
                                     }
                                 }
                             }
@@ -1443,101 +1461,100 @@ public class DisasterAreawithRandom extends RandomSpeedBase {
                         if (movePhase == 0) {
                             //random movement to receive injured
                             maxpause = oldmaxpause;
-                            dst = new Position(245, 150);
+                            dst = new Position(450, 105);
                             cycle.add(dst);
                             ++movePhase;
                         } else {
                             if (movePhase == 1) {
                                 //move via patients waiting for treatment area exit to casualties clearing station entry
-                                maxpause = 120.0;
+                                maxpause = 200;
                                 for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                    if (Math.random() >= 0.25) {//to area 3
-                                        dst = new Position(45, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 0
-                                        dst = new Position(245, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 1
-                                        dst = new Position(45, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 2
-                                        dst = new Position(245, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    }
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
                                 }
+                                ++movePhase;
                             } else {
                                 if (movePhase == 2) {
                                     //return to patients waiting for treatment area exit
                                     maxpause = 120.0;
-                                    for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                        if (Math.random() >= 0.25) {//to area 0
-                                            dst = new Position(245, 300);
+                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                        if (Math.random() >= 0.25) {//to area 1
+                                            dst = new Position(450, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
                                         } else if (Math.random() >= 0.25) {//to area 2
-                                            dst = new Position(245, 150);
+                                            dst = new Position(450, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
                                         } else if (Math.random() >= 0.25) {//to area 3
-                                            dst = new Position(45, 150);
+                                            dst = new Position(55, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
-                                        } else if (Math.random() >= 0.25) {//to area 1
-                                            dst = new Position(45, 300);
+                                        } else if (Math.random() >= 0.25) {//to area 0
+                                            dst = new Position(450, 500);
                                             cycle.add(dst);
-                                            ++movePhase;
                                         }
                                     }
+                                    ++movePhase;
                                 } else {
                                     if (movePhase == 3) {
                                         maxpause = 120.0;
                                         for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
+                                            //skip last entry, because you are already there
                                             if (Math.random() >= 0.25) {//to area 2
-                                                dst = new Position(245, 150);
+                                                dst = new Position(450, 105);
                                                 cycle.add(dst);
-                                                ++movePhase;
                                             } else if (Math.random() >= 0.25) {//to area 3
-                                                dst = new Position(45, 150);
+                                                dst = new Position(55, 105);
                                                 cycle.add(dst);
-                                                ++movePhase;
                                             } else if (Math.random() >= 0.25) {//to area 0
-                                                dst = new Position(245, 300);
+                                                dst = new Position(450, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
                                             } else if (Math.random() >= 0.25) {//to area 1
-                                                dst = new Position(45, 300);
+                                                dst = new Position(55, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
                                             }
                                         }
+                                        ++movePhase;
                                     } else {
                                         if (movePhase == 4) {
                                             maxpause = 120;
                                             for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                if (Math.random() >= 0.25) {//to area 1
-                                                    dst = new Position(45, 300);
+                                                //skip last entry, because you are already there
+                                                if (Math.random() >= 0.25) {//to area 3
+                                                    dst = new Position(55, 105);
                                                     cycle.add(dst);
-                                                    ++movePhase;
                                                 } else if (Math.random() >= 0.25) {//to area 0
-                                                    dst = new Position(245, 300);
+                                                    dst = new Position(450, 500);
                                                     cycle.add(dst);
-                                                    ++movePhase;
+                                                } else if (Math.random() >= 0.25) {//to area 1
+                                                    dst = new Position(55, 500);
+                                                    cycle.add(dst);
                                                 } else if (Math.random() >= 0.25) {//to area 2
-                                                    dst = new Position(245, 150);
+                                                    dst = new Position(450, 105);
                                                     cycle.add(dst);
-                                                    ++movePhase;
-                                                } else if (Math.random() >= 0.25) {//to area 3
-                                                    dst = new Position(45, 150);
-                                                    cycle.add(dst);
-                                                    ++movePhase;
                                                 }
                                             }
+                                            ++movePhase;
+                                        } else {
+                                            if (movePhase == 5) {
+                                                maxpause = 120;
+                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
+                                                    //skip last entry, because you are already there
+                                                    if (Math.random() >= 0.25) {//to area 0
+                                                        dst = new Position(450, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 1
+                                                        dst = new Position(55, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 2
+                                                        dst = new Position(450, 105);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 3
+                                                        dst = new Position(55, 105);
+                                                        cycle.add(dst);
+                                                    }
+                                                }
+                                                movePhase = 0;
+                                            }
                                         }
-                                        movePhase = 0;
                                     }
                                 }
                             }
@@ -1554,105 +1571,102 @@ public class DisasterAreawithRandom extends RandomSpeedBase {
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
+                            //random movement to receive injured
                             maxpause = oldmaxpause;
-                            dst = new Position(45, 150);
+                            dst = new Position(55, 500);
                             cycle.add(dst);
                             ++movePhase;
                         } else {
                             if (movePhase == 1) {
                                 //move via patients waiting for treatment area exit to casualties clearing station entry
-                                maxpause = 120.0;
+                                maxpause = 200;
                                 for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                    if (Math.random() >= 0.25) {//to area 1
-                                        dst = new Position(45, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 2
-                                        dst = new Position(45, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 3
-                                        dst = new Position(245, 150);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    } else if (Math.random() >= 0.25) {//to area 0
-                                        dst = new Position(245, 300);
-                                        cycle.add(dst);
-                                        ++movePhase;
-                                    }
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
                                 }
+                                ++movePhase;
                             } else {
                                 if (movePhase == 2) {
                                     //return to patients waiting for treatment area exit
                                     maxpause = 120.0;
-                                    for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                        //skip last entry, because you are already there
-                                        if (Math.random() >= 0.25) {//to area 2
-                                            dst = new Position(45, 150);
+                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                        if (Math.random() >= 0.25) {//to area 1
+                                            dst = new Position(450, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
+                                        } else if (Math.random() >= 0.25) {//to area 2
+                                            dst = new Position(450, 105);
+                                            cycle.add(dst);
                                         } else if (Math.random() >= 0.25) {//to area 3
-                                            dst = new Position(245, 150);
+                                            dst = new Position(55, 105);
                                             cycle.add(dst);
-                                            ++movePhase;
                                         } else if (Math.random() >= 0.25) {//to area 0
-                                            dst = new Position(245, 300);
+                                            dst = new Position(450, 500);
                                             cycle.add(dst);
-                                            ++movePhase;
-                                        } else if (Math.random() >= 0.25) {//to area 1
-                                            dst = new Position(45, 300);
-                                            cycle.add(dst);
-                                            ++movePhase;
                                         }
                                     }
+                                    ++movePhase;
                                 } else {
                                     if (movePhase == 3) {
                                         maxpause = 120.0;
                                         for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
                                             //skip last entry, because you are already there
-                                            if (Math.random() >= 0.25) {//to area 3
-                                                dst = new Position(245, 150);
+                                            if (Math.random() >= 0.25) {//to area 2
+                                                dst = new Position(450, 105);
                                                 cycle.add(dst);
-                                                ++movePhase;
+                                            } else if (Math.random() >= 0.25) {//to area 3
+                                                dst = new Position(55, 105);
+                                                cycle.add(dst);
                                             } else if (Math.random() >= 0.25) {//to area 0
-                                                dst = new Position(245, 300);
+                                                dst = new Position(450, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
                                             } else if (Math.random() >= 0.25) {//to area 1
-                                                dst = new Position(45, 300);
+                                                dst = new Position(55, 500);
                                                 cycle.add(dst);
-                                                ++movePhase;
-                                            } else if (Math.random() >= 0.25) {//to area 2
-                                                dst = new Position(45, 150);
-                                                cycle.add(dst);
-                                                ++movePhase;
                                             }
                                         }
+                                        ++movePhase;
                                     } else {
                                         if (movePhase == 4) {
                                             maxpause = 120;
                                             for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
                                                 //skip last entry, because you are already there
-                                                if (Math.random() >= 0.25) {//to area 0
-                                                    dst = new Position(245, 300);
+                                                if (Math.random() >= 0.25) {//to area 3
+                                                    dst = new Position(55, 105);
                                                     cycle.add(dst);
-                                                    ++movePhase;
+                                                } else if (Math.random() >= 0.25) {//to area 0
+                                                    dst = new Position(450, 500);
+                                                    cycle.add(dst);
                                                 } else if (Math.random() >= 0.25) {//to area 1
-                                                    dst = new Position(45, 300);
+                                                    dst = new Position(55, 500);
                                                     cycle.add(dst);
-                                                    ++movePhase;
                                                 } else if (Math.random() >= 0.25) {//to area 2
-                                                    dst = new Position(45, 150);
+                                                    dst = new Position(450, 105);
                                                     cycle.add(dst);
-                                                    ++movePhase;
-                                                } else if (Math.random() >= 0.25) {//to area 3
-                                                    dst = new Position(245, 150);
-                                                    cycle.add(dst);
-                                                    ++movePhase;
                                                 }
                                             }
+                                            ++movePhase;
+                                        } else {
+                                            if (movePhase == 5) {
+                                                maxpause = 120;
+                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
+                                                    //skip last entry, because you are already there
+                                                    if (Math.random() >= 0.25) {//to area 0
+                                                        dst = new Position(450, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 1
+                                                        dst = new Position(55, 500);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 2
+                                                        dst = new Position(450, 105);
+                                                        cycle.add(dst);
+                                                    } else if (Math.random() >= 0.25) {//to area 3
+                                                        dst = new Position(55, 105);
+                                                        cycle.add(dst);
+                                                    }
+                                                }
+                                                movePhase = 0;
+                                            }
                                         }
-                                        movePhase = 0;
                                     }
                                 }
                             }

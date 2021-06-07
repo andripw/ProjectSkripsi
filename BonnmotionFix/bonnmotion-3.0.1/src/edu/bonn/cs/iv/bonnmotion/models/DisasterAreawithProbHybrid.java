@@ -1260,19 +1260,15 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                                         if (rand >= 0.1) {//to area 2
                                             dst = new Position(450, 105);
                                             cycle.add(dst);
-//                                            ++movePhase;
                                         } else if (rand >= 0.2) {//to area 3
                                             dst = new Position(55, 105);
                                             cycle.add(dst);
-//                                            ++movePhase;
                                         } else if (rand >= 0.3) {//to area 0
                                             dst = new Position(450, 500);
                                             cycle.add(dst);
-//                                            ++movePhase;
                                         } else if (rand >= 0.4) {//to area 1
                                             dst = new Position(55, 500);
                                             cycle.add(dst);
-//                                            ++movePhase;
                                         }
 
                                     }
@@ -1285,19 +1281,15 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                                             if (rand >= 0.1) {//to area 3
                                                 dst = new Position(55, 105);
                                                 cycle.add(dst);
-//                                                ++movePhase;
                                             } else if (rand >= 0.3) {//to area 2
                                                 dst = new Position(450, 105);
                                                 cycle.add(dst);
-//                                                ++movePhase;
                                             } else if (rand >= 0.3) {//to area 0
                                                 dst = new Position(450, 500);
                                                 cycle.add(dst);
-//                                                ++movePhase;
                                             } else if (rand >= 0.3) {//to area 1
                                                 dst = new Position(55, 500);
                                                 cycle.add(dst);
-//                                                ++movePhase;
                                             }
                                         }
                                         ++movePhase;

@@ -1,6 +1,6 @@
 model=DisasterAreawithProbHybrid
-ignore=1.0
-randomSeed=10
+ignore=5.0
+randomSeed=50
 x=600.0
 y=600.0
 duration=10000.0

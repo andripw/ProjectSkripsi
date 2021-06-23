@@ -1233,7 +1233,7 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
             }
         }
         switch (area.type) {
-            case 0://area laboratorium              
+            case 0://area kelas              
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
@@ -1266,7 +1266,7 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                                         dst = new Position(55, 500);
                                         cycle.add(dst);
 //                                            System.out.println("area 1");
-                                    }
+                                    } 
                                 }
 //                                maxpause = 300;
 //                                dst = DetRandDst(xleft, xright, ylow, yhigh, area);
@@ -1539,7 +1539,7 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                     }
                 } while (movePhase != 0);
                 break;
-            case 2://area perpustakaan		//casualties clearing station, therefore specific cycle             
+            case 2://area lab		//casualties clearing station, therefore specific cycle             
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
@@ -1553,14 +1553,14 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                                 //move via patients waiting for treatment area exit to casualties clearing station entry
                                 maxpause = 200;
                                 for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                    if (Math.random() <= 0.6) {
+                                    if (Math.random() <= 0.4) {
                                         dst = new Position(250, 300);
                                         cycle.add(dst);
-                                    } else if (Math.random() <= 0.1) {//to area 2
+                                    } else if (Math.random() <= 0.2) {//to area 2
                                         dst = new Position(450, 105);
                                         cycle.add(dst);
 //                                            System.out.println("area 2");
-                                    } else if (Math.random() <= 0.1) {//to area 3
+                                    } else if (Math.random() <= 0.2) {//to area 3
                                         dst = new Position(55, 105);
                                         cycle.add(dst);
 //                                            System.out.println("area 3");
@@ -1687,7 +1687,7 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                     }
                 } while (movePhase != 0);
                 break;
-            case 3://area kelas		//technical operational command, therefore speed specific cycle
+            case 3://area perpus		//technical operational command, therefore speed specific cycle
                 //random movement              
                 do {
                     if (node.type == 0) { //transport node

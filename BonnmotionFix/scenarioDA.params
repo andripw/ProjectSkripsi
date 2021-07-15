@@ -1,9 +1,9 @@
 model=DisasterAreawithProbHybrid
 ignore=5.0
-randomSeed=15
+randomSeed=5
 x=600.0
 y=600.0
-duration=10000.0
+duration=7200.0
 nn=40
 circular=false
 J=2D

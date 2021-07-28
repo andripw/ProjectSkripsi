@@ -111,8 +111,8 @@ public class ProbabilityHybrid extends Scenario {
     private Position determineMovement(Position currentPos, int i) {
         Position pos = null;
         double rand = Math.random();
-        switch (cekPosition(currentPos, i).areaID) {//jika node berada di areanya sendiri
-            case 0:
+        switch (cekPosition(currentPos, i).areaID) {//jika node berada di area
+            case 1:
                 maxpause = 120;
                 if (rand < 0.5) {//50%
                     pos = area.get(4).generateRandomPos();
@@ -126,7 +126,7 @@ public class ProbabilityHybrid extends Scenario {
                     pos = area.get(3).generateRandomPos();
                 }
                 break;
-            case 1:
+            case 2:
                 maxpause = 120;
                 if (rand <= 0.2) {//20%
                     pos = area.get(0).generateRandomPos();
@@ -140,7 +140,7 @@ public class ProbabilityHybrid extends Scenario {
                     pos = area.get(1).generateRandomPos();
                 }
                 break;
-            case 2:
+            case 3:
                 maxpause = 120;
                 if (rand < 0.4) {//40%
                     pos = area.get(4).generateRandomPos();
@@ -154,31 +154,31 @@ public class ProbabilityHybrid extends Scenario {
                     pos = area.get(0).generateRandomPos();
                 }
                 break;
-            case 3:
+            case 4:
                 maxpause = 120;
-                if (rand <= 0.2) {
+                if (rand <= 0.2) {//20%
                     pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.4) {
+                } else if (rand <= 0.4) {//20%
                     pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.6) {
+                } else if (rand <= 0.6) {//20%
                     pos = area.get(4).generateRandomPos();
-                } else if (rand <= 0.8) {
+                } else if (rand <= 0.8) {//20%
                     pos = area.get(2).generateRandomPos();
-                } else {
+                } else {//20%
                     pos = area.get(3).generateRandomPos();
                 }
                 break;
-            case 4:
+            case 5:
                 maxpause = 180;
-                if (rand <= 0.2) {//%
+                if (rand <= 0.2) {//20%
                     pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.4) {//%
+                } else if (rand <= 0.4) {//20%
                     pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.6) {//%
+                } else if (rand <= 0.6) {//20%
                     pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.8) {//%
+                } else if (rand <= 0.8) {//20%
                     pos = area.get(4).generateRandomPos();
-                } else {//%
+                } else {//20%
                     pos = area.get(3).generateRandomPos();
                 }
                 break;
@@ -206,24 +206,24 @@ public class ProbabilityHybrid extends Scenario {
     //inisialisasi posisi node di areanya masing-masing
     private Position initialPosition(int a) {
         if (a >= 0 && a <= 9) {
-            return area.get(0).generateRandomPos();
-        } else if (a >= 10 && a <= 19) {
             return area.get(1).generateRandomPos();
-        } else if (a >= 20 && a <= 29) {
+        } else if (a >= 10 && a <= 19) {
             return area.get(2).generateRandomPos();
-        } else if (a >= 30 && a <= 39) {
+        } else if (a >= 20 && a <= 29) {
             return area.get(3).generateRandomPos();
+        } else if (a >= 30 && a <= 39) {
+            return area.get(4).generateRandomPos();
         }
         return null;
     }
 
     //membuat koordinat posisi di sub-area
     private void initArea() {
-        area.add(new Area(400, 500, 500, 400, 0));
-        area.add(new Area(10, 100, 500, 400, 1));
-        area.add(new Area(400, 500, 100, 10, 2));
-        area.add(new Area(10, 100, 100, 10, 3));
-        area.add(new Area(200, 300, 300, 200, 4));
+        area.add(new Area(400, 500, 500, 400, 1));
+        area.add(new Area(10, 100, 500, 400, 2));
+        area.add(new Area(400, 500, 100, 10, 3));
+        area.add(new Area(10, 100, 100, 10, 4));
+        area.add(new Area(200, 300, 300, 200, 5));
     }
 
     /*

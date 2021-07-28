@@ -37,7 +37,7 @@ public class MovementNs2Report extends Report implements MovementListener {
     /**
      * a value "close enough" to zero ({@value}). Used for fixing zero values
      */
-    public static final double EPSILON = 0.00001;
+    public static final double EPSILON = 0.1;
     /**
      * formatting string for coordinate values ({@value})
      */
@@ -72,8 +72,8 @@ public class MovementNs2Report extends Report implements MovementListener {
 
     public void initialLocation(DTNHost host, Coord location) {
         int index = host.getAddress();
-        write(nodeArray + "(" + index + ") set X_ " + fix(location.getX()));
-        write(nodeArray + "(" + index + ") set Y_ " + fix(location.getY()));
+        write(nodeArray + "(" + index + ") set X_ " + (location.getX()));
+        write(nodeArray + "(" + index + ") set Y_ " + (location.getY()));
         write(nodeArray + "(" + index + ") set Z_ 0");
     }
 
@@ -82,7 +82,7 @@ public class MovementNs2Report extends Report implements MovementListener {
         double time = getSimTime();
 
         write(nsCmd + " at " + time + " \"\\" + nodeArray + "(" + index + ")"
-                + " setdest " + fix(dst.getX()) + " " + fix(dst.getY())
+                + " setdest " + (dst.getX()) + " " + (dst.getY())
                 + " " + speed + "\"");
     }
 

@@ -115,71 +115,71 @@ public class ProbabilityHybrid extends Scenario {
             case 1:
                 maxpause = 120;
                 if (rand < 0.5) {//50%
-                    pos = area.get(4).generateRandomPos();
+                    pos = area.get(5).generateRandomPos();
                 } else if (rand < 0.7) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand < 0.8) {//10%
                     pos = area.get(2).generateRandomPos();
-                } else if (rand < 0.9) {//10%
-                    pos = area.get(0).generateRandomPos();
-                } else {//10%
+                } else if (rand < 0.8) {//10%
                     pos = area.get(3).generateRandomPos();
+                } else if (rand < 0.9) {//10%
+                    pos = area.get(1).generateRandomPos();
+                } else {//10%
+                    pos = area.get(4).generateRandomPos();
                 }
                 break;
             case 2:
                 maxpause = 120;
                 if (rand <= 0.2) {//20%
-                    pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand <= 0.8) {//20$
-                    pos = area.get(4).generateRandomPos();
-                } else {//20%
                     pos = area.get(1).generateRandomPos();
+                } else if (rand <= 0.4) {//20%
+                    pos = area.get(3).generateRandomPos();
+                } else if (rand <= 0.6) {//20%
+                    pos = area.get(4).generateRandomPos();
+                } else if (rand <= 0.8) {//20$
+                    pos = area.get(5).generateRandomPos();
+                } else {//20%
+                    pos = area.get(2).generateRandomPos();
                 }
                 break;
             case 3:
                 maxpause = 120;
                 if (rand < 0.4) {//40%
-                    pos = area.get(4).generateRandomPos();
+                    pos = area.get(5).generateRandomPos();
                 } else if (rand < 0.6) {//20%
-                    pos = area.get(3).generateRandomPos();
+                    pos = area.get(4).generateRandomPos();
                 } else if (rand < 0.8) {//20%
-                    pos = area.get(2).generateRandomPos();
+                    pos = area.get(3).generateRandomPos();
                 } else if (rand < 0.9) {//10%
-                    pos = area.get(1).generateRandomPos();
+                    pos = area.get(2).generateRandomPos();
                 } else {//10%
-                    pos = area.get(0).generateRandomPos();
+                    pos = area.get(1).generateRandomPos();
                 }
                 break;
             case 4:
                 maxpause = 120;
                 if (rand <= 0.2) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(4).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
                     pos = area.get(2).generateRandomPos();
-                } else {//20%
+                } else if (rand <= 0.4) {//20%
+                    pos = area.get(1).generateRandomPos();
+                } else if (rand <= 0.6) {//20%
+                    pos = area.get(5).generateRandomPos();
+                } else if (rand <= 0.8) {//20%
                     pos = area.get(3).generateRandomPos();
+                } else {//20%
+                    pos = area.get(4).generateRandomPos();
                 }
                 break;
             case 5:
                 maxpause = 180;
                 if (rand <= 0.2) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
-                    pos = area.get(4).generateRandomPos();
-                } else {//20%
                     pos = area.get(3).generateRandomPos();
+                } else if (rand <= 0.4) {//20%
+                    pos = area.get(1).generateRandomPos();
+                } else if (rand <= 0.6) {//20%
+                    pos = area.get(2).generateRandomPos();
+                } else if (rand <= 0.8) {//20%
+                    pos = area.get(5).generateRandomPos();
+                } else {//20%
+                    pos = area.get(4).generateRandomPos();
                 }
                 break;
             default:

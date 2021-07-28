@@ -1,6 +1,6 @@
 model=DisasterAreawithProbHybrid
-ignore=5.0
-randomSeed=5
+ignore=1.0
+randomSeed=15
 x=600.0
 y=600.0
 duration=7200.0
@@ -25,4 +25,4 @@ writeVisibilityGraph=false
 noKnockOver=true
 minspeed=1.0
 maxspeed=2.0
-maxpause=500.0
+maxpause=300.0

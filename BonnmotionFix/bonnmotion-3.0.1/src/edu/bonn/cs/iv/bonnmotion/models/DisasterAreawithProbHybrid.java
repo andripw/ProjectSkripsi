@@ -1029,188 +1029,197 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
         }
     }
 
-    // chooses the shortest path to next area (only areas that have to be visited for nodetype), even if its width is not maxdist but another has a width of maxdist
+    // chooses the shortest path to next area (only areas that have to be visited for nodetype), 
+    //even if its width is not maxdist but another has a width of maxdist
     @SuppressWarnings("unchecked")
     public LinkedList<Position> determineway(CatastropheArea area) {
         LinkedList<CatastropheArea> possibleAreas = determineAreastovisit(area);
+        Position src = new Position(area.exit.x, area.exit.y);
+//        Position src = null;
+        Position toreach = null;
         LinkedList<Position> completeway = null;
         LinkedList<Position> tempway = null;
         LinkedList<Position> tempway2 = null;
-        Position src = null;
-        Position toreach = null;
+//        LinkedList<Position> completeway = (LinkedList<Position>) ((PositionHashMap) (shortestpaths[area.type].get(src))).get(toreach);
+
         double mindist2 = Double.MAX_VALUE;
         double tempdist = 0;
         for (int i = 0; i < possibleAreas.size(); i++) {
-            switch (area.type) {
-                case 0://area laboratorium
-                    Position end1 = new Position(possibleAreas.get(i).entry.x, possibleAreas.get(i).entry.y);
-                    toreach = end1;
-                    Position src1 = new Position(area.exit.x, area.exit.y);
-                    src = src1;
-                    break;
-                case 1://area kantin
-                    Position end2 = new Position(possibleAreas.get(i).entry.x, possibleAreas.get(i).entry.y);
-                    toreach = end2;
-                    Position src2 = new Position(area.exit.x, area.exit.y);
-                    src = src2;
-                    break;
-                case 2://area perpustakaan
-                    Position end3 = new Position(possibleAreas.get(i).exit.x, possibleAreas.get(i).exit.y);
-                    toreach = end3;
-                    Position src3 = new Position(area.exit.x, area.exit.y);
-                    src = src3;
-                    break;
-                case 3://area kelas
-                    Position end4 = new Position(possibleAreas.get(i).exit.x, possibleAreas.get(i).exit.y);
-                    toreach = end4;
-                    Position src4 = new Position(area.exit.x, area.exit.y);
-                    src = src4;
-                    break;
-                default:
-                    //should not be reached
-                    System.out.println("Error in " + getInfo().name + ", couldn't determine way");
-                    System.exit(0);
-            }
-            if (src != null && toreach != null) {
-                PositionHashMap waysForSrc = ((PositionHashMap) shortestpaths[area.type].get(src));
-                PositionHashMap MinwaysForSrc = ((PositionHashMap) Minshortestpaths[area.type].get(src));
-                tempway = (LinkedList<Position>) waysForSrc.get(toreach);
-                tempway2 = (LinkedList<Position>) MinwaysForSrc.get(toreach);
-                for (int j = 0; j < tempway.size() - 1; j++) {
-                    tempdist = tempdist + tempway.get(j).distance(tempway.get(j + 1));
-                }
-                if (tempdist < mindist2) {
-                    maxdist = oldmaxdist;
-                    mindist2 = tempdist;
-                    completeway = tempway;
-                }
-                tempdist = 0;
-                for (int j = 0; j < tempway2.size() - 1; j++) {
-                    tempdist = tempdist + tempway2.get(j).distance(tempway2.get(j + 1));
-                }
-                tempdist = tempdist * factor;
-                if (tempdist < mindist2) {
-                    maxdist = mindist;
-                    mindist2 = tempdist;
-                    completeway = tempway2;
-                }
-                tempdist = 0;
-                mindist2 = Double.MAX_VALUE;
-                area.allways.add(completeway);
-            }
+            toreach = new Position(possibleAreas.get(i).entry.x, possibleAreas.get(i).entry.y);
+            src = new Position(area.exit.x, area.exit.y);
+//            switch (area.type) {
+//                case 0://area laboratorium
+//                    toreach = new Position(possibleAreas.get(i).entry.x, possibleAreas.get(i).entry.y);
+//                    src = new Position(area.exit.x, area.exit.y);
+//                    break;
+//                case 1://area kantin
+//                    toreach = new Position(possibleAreas.get(i).entry.x, possibleAreas.get(i).entry.y);
+//                    src = new Position(area.exit.x, area.exit.y);
+////                    src = src2;
+//                    break;
+//                case 2://area perpustakaan
+//                    Position end3 = new Position(possibleAreas.get(i).entry.x, possibleAreas.get(i).entry.y);
+//                    toreach = end3;
+//                    Position src3 = new Position(area.exit.x, area.exit.y);
+//                    src = src3;
+//                    break;
+//                case 3://area kelas
+//                    Position end4 = new Position(possibleAreas.get(i).exit.x, possibleAreas.get(i).exit.y);
+//                    toreach = end4;
+//                    Position src4 = new Position(area.exit.x, area.exit.y);
+//                    src = src4;
+//                    break;
+//                default:
+//                    //should not be reached
+//                    System.out.println("Error in " + getInfo().name + ", couldn't determine way");
+//                    System.exit(0);
         }
+        if (src != null && toreach != null) {
+            PositionHashMap waysForSrc = ((PositionHashMap) shortestpaths[area.type].get(src));
+            PositionHashMap MinwaysForSrc = ((PositionHashMap) Minshortestpaths[area.type].get(src));
+            tempway = (LinkedList<Position>) waysForSrc.get(toreach);
+            tempway2 = (LinkedList<Position>) MinwaysForSrc.get(toreach);
+            for (int j = 0; j < tempway.size() - 1; j++) {
+                tempdist = tempdist + tempway.get(j).distance(tempway.get(j + 1));
+            }
+            if (tempdist < mindist2) {
+                maxdist = oldmaxdist;
+                mindist2 = tempdist;
+                completeway = tempway;
+            }
+            tempdist = 0;
+            for (int j = 0; j < tempway2.size() - 1; j++) {
+                tempdist = tempdist + tempway2.get(j).distance(tempway2.get(j + 1));
+            }
+            tempdist = tempdist * factor;
+            if (tempdist < mindist2) {
+                maxdist = mindist;
+                mindist2 = tempdist;
+                completeway = tempway2;
+            }
+            tempdist = 0;
+            mindist2 = Double.MAX_VALUE;
+            area.allways.add(completeway);
+        }
+
+//        area.allways.add()
         return completeway;
     }
 
-    // determine which areas groups belonging to area may visit
+// determine which areas groups belonging to area may visit
     public LinkedList<CatastropheArea> determineAreastovisit(CatastropheArea area) {
+//        LinkedList<CatastropheArea> Areastovisit = new LinkedList<CatastropheArea>();
+////        LinkedList<Integer> arraypos = new LinkedList<Integer>();
+//        switch (area.type) {
+//            case 0://area laboratorium
+//                for (int i = 0; i < catastropheAreas.length; i++) {
+//                    if (catastropheAreas[i].type == 0) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 1) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 2) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 3) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    }
+//                }
+//                if (Areastovisit.size() == 0) {
+//                    System.out.println("Please specify a patients waiting for treatment area for incident location! aborting...");
+//                    System.exit(0);
+//                }
+//                break;
+//            case 1://area kantin
+//                for (int i = 0; i < catastropheAreas.length; i++) {
+//                    if (catastropheAreas[i].type == 0) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 1) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 2) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 3) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    }
+//                }
+//                if (Areastovisit.size() == 0) {
+//                    System.out.println("Please specify a casualties clearing station for patients waiting for treatment area! aborting...");
+//                    System.exit(0);
+//                }
+//                break;
+//            case 2://area perpustakaan
+//                for (int i = 0; i < catastropheAreas.length; i++) {
+//                    if (catastropheAreas[i].type == 0) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 1) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 2) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 3) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    }
+//                }
+//                if (Areastovisit.size() == 0) {
+//                    System.out.println("Please specify a casualties clearing station for patients waiting for treatment area! aborting...");
+//                    System.exit(0);
+//                }
+//                break;
+//            case 3://area kelas
+//                for (int i = 0; i < catastropheAreas.length; i++) {
+//                    if (catastropheAreas[i].type == 0) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 1) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 2) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    } else if (catastropheAreas[i].type == 3) {
+//                        Areastovisit.add(catastropheAreas[i]);
+////                        Integer temp = new Integer(i);
+////                        arraypos.add(temp);
+//                    }
+//                }
+//                if (Areastovisit.size() == 0) {
+//                    System.out.println("Please specify a casualties clearing station for patients waiting for treatment area! aborting...");
+//                    System.exit(0);
+//                }
+//                break;
+//            default: //should not be reached
+//                System.out.println("Error in " + getInfo().name + ", couldn't determine Areas to visit");
+//                System.exit(0);
+//        }
         LinkedList<CatastropheArea> Areastovisit = new LinkedList<CatastropheArea>();
-        LinkedList<Integer> arraypos = new LinkedList<Integer>();
-        switch (area.type) {
-            case 0://area laboratorium
-                for (int i = 0; i < catastropheAreas.length; i++) {
-                    if (catastropheAreas[i].type == 0) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 1) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 2) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 3) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    }
-                }
-                if (Areastovisit.size() == 0) {
-                    System.out.println("Please specify a patients waiting for treatment area for incident location! aborting...");
-                    System.exit(0);
-                }
-                break;
-            case 1://area kantin
-                for (int i = 0; i < catastropheAreas.length; i++) {
-                    if (catastropheAreas[i].type == 0) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 1) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 2) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 3) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    }
-                }
-                if (Areastovisit.size() == 0) {
-                    System.out.println("Please specify a casualties clearing station for patients waiting for treatment area! aborting...");
-                    System.exit(0);
-                }
-                break;
-            case 2://area perpustakaan
-                for (int i = 0; i < catastropheAreas.length; i++) {
-                    if (catastropheAreas[i].type == 0) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 1) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 2) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 3) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    }
-                }
-                if (Areastovisit.size() == 0) {
-                    System.out.println("Please specify a casualties clearing station for patients waiting for treatment area! aborting...");
-                    System.exit(0);
-                }
-                break;
-            case 3://area kelas
-                for (int i = 0; i < catastropheAreas.length; i++) {
-                    if (catastropheAreas[i].type == 0) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 1) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 2) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    } else if (catastropheAreas[i].type == 3) {
-                        Areastovisit.add(catastropheAreas[i]);
-                        Integer temp = new Integer(i);
-                        arraypos.add(temp);
-                    }
-                }
-                if (Areastovisit.size() == 0) {
-                    System.out.println("Please specify a casualties clearing station for patients waiting for treatment area! aborting...");
-                    System.exit(0);
-                }
-                break;
-            default: //should not be reached
-                System.out.println("Error in " + getInfo().name + ", couldn't determine Areas to visit");
-                System.exit(0);
+        for (int i = 0; i < catastropheAreas.length; i++) {
+            Areastovisit.add(catastropheAreas[i]);
         }
+
         return Areastovisit;
     }
 
@@ -1222,16 +1231,21 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
         double xright = area.getBounds().x + area.getBounds().width;
         double yhigh = area.getBounds().y;
         double ylow = area.getBounds().y + area.getBounds().height;
-        double whichArea = randomNextDouble();
+//        double whichArea = randomNextDouble();
+        double whichArea = 0.25;
         double numAreas = area.allways.size();
-//        System.out.println("whichArea : " + whichArea);
-//        System.out.println("numAreas : " + numAreas);
         double step = 1 / numAreas;
-//        System.out.println("Step : " + step);
+        System.out.println("step : " + step);
         int PosInList = 0;
+
         for (int i = 1; i <= numAreas; i++) {
+            System.out.println("whichArea : " + whichArea);
+            System.out.println("numAreas : " + numAreas);
+            System.out.println("hasil step : " + i * step);
             if (whichArea <= i * step) {
+                //menentukan area tujuan
                 PosInList = i - 1;
+                System.out.println("PosinList : " + PosInList);
                 break;
             }
         }
@@ -1240,125 +1254,38 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
-                            //random movement to receive injured
-                            maxpause = oldmaxpause;//waktu jeda di area 0
-                            dst = new Position(450, 500);//posisi area 0
-                            cycle.add(dst);//tambahkan posisi di cycle
-                            ++movePhase;//move phase bertambah
-                        } else {
-                            if (movePhase == 1) {
-                                maxpause = 200;
-                                for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-//                                    System.out.println("Isi : " + (area.allways.get(PosInList)).size());
-                                    if (Math.random() <= 0.5) {
-                                        dst = new Position(250, 300);
-                                        cycle.add(dst);
-//                                        System.out.println("Aula");
-                                    } else if (Math.random() <= 0.2) {//to area 2
-                                        dst = new Position(450, 105);
-                                        cycle.add(dst);
-//                                        System.out.println("area 2");
-                                    } else if (Math.random() <= 0.1) {//to area 3
-                                        dst = new Position(55, 105);
-                                        cycle.add(dst);
-//                                        System.out.println("area 3");
-                                    } else if (Math.random() <= 0.1) {//to area 0
-                                        dst = new Position(450, 500);
-                                        cycle.add(dst);
-//                                        System.out.println("area 0");
-                                    } else if (Math.random() <= 0.1) {//to area 1
-                                        dst = new Position(55, 500);
-                                        cycle.add(dst);
-//                                        System.out.println("area 1");
-                                    }
-                                }
-                                ++movePhase;
-                            } else {
-                                if (movePhase == 2) {
-                                    maxpause = 180.0;
-                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                        if (Math.random() <= 0.5) {//to area 2
-                                            dst = new Position(450, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.3) {//to area 3
-                                            dst = new Position(55, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.1) {//to area 0
-                                            dst = new Position(450, 500);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.1) {//to area 1
-                                            dst = new Position(55, 500);
-                                            cycle.add(dst);
-                                        }
-                                    }
-                                    ++movePhase;
-                                } else {
-                                    if (movePhase == 3) {
-                                        maxpause = 180.0;
-                                        for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                            if (Math.random() <= 0.6) {//to area 3
-                                                dst = new Position(55, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.2) {//to area 2
-                                                dst = new Position(450, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.1) {//to area 0
-                                                dst = new Position(450, 500);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.1) {//to area 1
-                                                dst = new Position(55, 500);
-                                                cycle.add(dst);
-                                            }
-                                        }
-                                        ++movePhase;
-                                    } else {
-                                        if (movePhase == 4) {
-                                            maxpause = 200;
-                                            for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                                if (Math.random() <= 0.5) {
-                                                    dst = new Position(250, 300);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.2) {//to area 2
-                                                    dst = new Position(450, 105);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.1) {//to area 3
-                                                    dst = new Position(55, 105);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.1) {//to area 0
-                                                    dst = new Position(450, 500);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.1) {//to area 1
-                                                    dst = new Position(55, 500);
-                                                    cycle.add(dst);
-                                                }
-                                            }
-                                            movePhase++;
-                                        } else {
-                                            if (movePhase == 5) {
-                                                maxpause = 500.0;
-                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                    if (Math.random() <= 0.7) {//to area 0
-                                                        dst = new Position(450, 500);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.1) {//to area 3
-                                                        dst = new Position(55, 105);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.1) {//to area 2
-                                                        dst = new Position(450, 105);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.1) {//to area 1
-                                                        dst = new Position(55, 500);
-                                                        cycle.add(dst);
-                                                    }
-                                                }
-                                                movePhase = 0;
-                                            }
-                                        }
-                                    }
+                            maxpause = 300;
+//                            System.out.println("area allways = " + area.allways);
+//                            LinkedList<Position> v = area.allways.get(PosInList);
+//                            System.out.println("case 0 get(posinlist) = " + v);
+//                            int j = area.allways.get(PosInList).size();
+//                            System.out.println("case 0 size = " + j);
+                            //mengulangi berapa banyak jalur yg hrs dilewati dari src ke dst/postinlist
+                            for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                if (Math.random() < 0.5) {//50%
+                                    dst = new Position(250, 300);//aula
+                                    cycle.add(dst);
+                                    System.out.println("aula");
+                                } else if (Math.random() < 0.7) {//20%
+                                    dst = new Position(450, 105);//to area 2
+                                    cycle.add(dst);
+                                    System.out.println("lab");
+                                } else if (Math.random() < 0.8) {//10%
+                                    dst = new Position(55, 105);//to area 3
+                                    cycle.add(dst);
+                                    System.out.println("perpus");
+                                } else if (Math.random() < 0.9) {//10%
+                                    dst = new Position(450, 500);//to area 0
+                                    cycle.add(dst);
+                                    System.out.println("kelas");
+                                } else {//10%
+                                    dst = new Position(55, 500);//to area 1
+                                    cycle.add(dst);
+                                    System.out.println("kantin");
                                 }
                             }
+                            movePhase = 0;
                         }
-
                     } else { //treatment node
                         maxpause = oldmaxpause;
                         dst = DetRandDst(xleft, xright, ylow, yhigh, area);
@@ -1370,134 +1297,26 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
-                            maxpause = oldmaxpause;
-                            dst = new Position(55, 500);
-                            cycle.add(dst);
-                            ++movePhase;
-                        } else {
-                            if (movePhase == 1) {
-                                maxpause = 200;
-                                for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-
-                                    if (Math.random() <= 0.2) {
-                                        dst = new Position(250, 300);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 2
-                                        dst = new Position(450, 105);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 3
-                                        dst = new Position(55, 105);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 0
-                                        dst = new Position(450, 500);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 1
-                                        dst = new Position(55, 500);
-                                        cycle.add(dst);
-                                    }
-                                }
-                                ++movePhase;
-                            } else {
-                                if (movePhase == 2) {
-                                    maxpause = 180.0;
-                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                        if (Math.random() <= 0.25) {//to area 1
-                                            dst = new Position(450, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.25) {//to area 2
-                                            dst = new Position(450, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.25) {//to area 3
-                                            dst = new Position(55, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.25) {//to area 0
-                                            dst = new Position(450, 500);
-                                            cycle.add(dst);
-                                        }
-                                    }
-                                    ++movePhase;
-                                } else {
-                                    if (movePhase == 3) {
-                                        maxpause = 180.0;
-                                        for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                            if (Math.random() <= 0.25) {//to area 2
-                                                dst = new Position(450, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.25) {//to area 3
-                                                dst = new Position(55, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.25) {//to area 0
-                                                dst = new Position(450, 500);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.25) {//to area 1
-                                                dst = new Position(55, 500);
-                                                cycle.add(dst);
-                                            }
-                                        }
-                                        ++movePhase;
-                                    } else {
-                                        if (movePhase == 4) {
-                                            maxpause = 180;
-                                            for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                if (Math.random() <= 0.25) {//to area 3
-                                                    dst = new Position(55, 105);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.25) {//to area 0
-                                                    dst = new Position(450, 500);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.25) {//to area 1
-                                                    dst = new Position(55, 500);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.25) {//to area 2
-                                                    dst = new Position(450, 105);
-                                                    cycle.add(dst);
-                                                }
-                                            }
-                                            ++movePhase;
-                                        } else {
-                                            if (movePhase == 5) {
-                                                maxpause = 180;
-                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                    if (Math.random() <= 0.25) {//to area 0
-                                                        dst = new Position(450, 500);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.25) {//to area 1
-                                                        dst = new Position(55, 500);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.25) {//to area 2
-                                                        dst = new Position(450, 105);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.25) {//to area 3
-                                                        dst = new Position(55, 105);
-                                                        cycle.add(dst);
-                                                    }
-                                                }
-                                                movePhase++;
-                                            } else {
-                                                if (movePhase == 6) {
-                                                    maxpause = 500.0;
-                                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                                        if (Math.random() <= 0.7) {//to area 1
-                                                            dst = new Position(450, 105);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 2
-                                                            dst = new Position(450, 105);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 3
-                                                            dst = new Position(55, 105);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 0
-                                                            dst = new Position(450, 500);
-                                                            cycle.add(dst);
-                                                        }
-                                                    }
-                                                    movePhase = 0;
-                                                }
-                                            }
-                                        }
-                                    }
+                            maxpause = 300;
+                            for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                if (Math.random() < 0.2) {
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.4) {//to area 2
+                                    dst = new Position(450, 105);
+                                    cycle.add(dst);
+                                } else if (Math.random() <= 0.6) {//to area 3
+                                    dst = new Position(55, 105);
+                                    cycle.add(dst);
+                                } else if (Math.random() <= 0.8) {//to area 0
+                                    dst = new Position(450, 500);
+                                    cycle.add(dst);
+                                } else {//to area 1
+                                    dst = new Position(55, 500);
+                                    cycle.add(dst);
                                 }
                             }
+                            movePhase = 0;
                         }
                     } else { //treatment node
                         maxpause = oldmaxpause;
@@ -1510,126 +1329,26 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
-                            maxpause = oldmaxpause;
-                            dst = new Position(450, 105);
-                            cycle.add(dst);
-                            ++movePhase;
-                        } else {
-                            if (movePhase == 1) {
-                                maxpause = 200;
-                                for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-//                                    System.out.println("Isi : " + (area.allways.get(PosInList)).size());
-                                    if (Math.random() <= 0.4) {
-                                        dst = new Position(250, 300);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 2
-                                        dst = new Position(450, 105);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 3
-                                        dst = new Position(55, 105);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.1) {//to area 0
-                                        dst = new Position(450, 500);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.1) {//to area 1
-                                        dst = new Position(55, 500);
-                                        cycle.add(dst);
-                                    }
-                                }
-                                ++movePhase;
-                            } else {
-                                if (movePhase == 2) {
-                                    maxpause = 180.0;
-                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                        if (Math.random() <= 0.5) {//to area 3
-                                            dst = new Position(55, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.2) {//to area 0
-                                            dst = new Position(450, 500);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.2) {//to area 1
-                                            dst = new Position(55, 500);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.1) {//to area 2
-                                            dst = new Position(450, 105);
-                                            cycle.add(dst);
-                                        }
-                                    }
-                                    ++movePhase;
-                                } else {
-                                    if (movePhase == 3) {
-                                        maxpause = 200;
-                                        for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                            if (Math.random() <= 0.4) {
-                                                dst = new Position(250, 300);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.2) {//to area 2
-                                                dst = new Position(450, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.2) {//to area 3
-                                                dst = new Position(55, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.1) {//to area 0
-                                                dst = new Position(450, 500);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.1) {//to area 1
-                                                dst = new Position(55, 500);
-                                                cycle.add(dst);
-                                            }
-                                        }
-                                        ++movePhase;
-                                    } else {
-                                        if (movePhase == 4) {
-                                            maxpause = 180.0;
-                                            for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                if (Math.random() <= 0.6) {//to area 1
-                                                    dst = new Position(55, 500);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.2) {//to area 2
-                                                    dst = new Position(450, 105);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.1) {//to area 3
-                                                    dst = new Position(55, 105);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.1) {//to area 0
-                                                    dst = new Position(450, 500);
-                                                    cycle.add(dst);
-                                                }
-                                            }
-                                            ++movePhase;
-                                        } else {
-                                            if (movePhase == 5) {
-                                                maxpause = 200;
-                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                    dst = new Position(250, 300);
-                                                    cycle.add(dst);
-                                                }
-                                                movePhase++;
-                                            } else {
-                                                if (movePhase == 6) {
-                                                    maxpause = 500.0;
-                                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                                        if (Math.random() <= 0.7) {//to area 2
-                                                            dst = new Position(450, 105);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 3
-                                                            dst = new Position(55, 105);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 0
-                                                            dst = new Position(450, 500);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 1
-                                                            dst = new Position(55, 500);
-                                                            cycle.add(dst);
-                                                        }
-                                                    }
-                                                    movePhase = 0;
-                                                }
-                                            }
-                                        }
-                                    }
+                            maxpause = 300;
+                            for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                if (Math.random() < 0.4) {
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.6) {//to area 2
+                                    dst = new Position(450, 105);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.8) {//to area 3
+                                    dst = new Position(55, 105);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.9) {//to area 0
+                                    dst = new Position(450, 500);
+                                    cycle.add(dst);
+                                } else {//to area 1
+                                    dst = new Position(55, 500);
+                                    cycle.add(dst);
                                 }
                             }
+                            movePhase = 0;
                         }
                     } else { //treatment node
                         maxpause = oldmaxpause;
@@ -1642,135 +1361,26 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                 do {
                     if (node.type == 0) { //transport node
                         if (movePhase == 0) {
-                            maxpause = oldmaxpause;
-                            dst = new Position(55, 105);
-                            cycle.add(dst);
-                            ++movePhase;
-                        } else {
-                            if (movePhase == 1) {
-                                maxpause = 200;
-                                for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-
-                                    if (Math.random() <= 0.2) {
-                                        dst = new Position(250, 300);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 2
-                                        dst = new Position(450, 105);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 3
-                                        dst = new Position(55, 105);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 0
-                                        dst = new Position(450, 500);
-                                        cycle.add(dst);
-                                    } else if (Math.random() <= 0.2) {//to area 1
-                                        dst = new Position(55, 500);
-                                        cycle.add(dst);
-                                    }
-                                }
-                                ++movePhase;
-                            } else {
-                                if (movePhase == 2) {
-                                    maxpause = 180.0;
-                                    for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
-                                        if (Math.random() <= 0.25) {//to area 1
-                                            dst = new Position(55, 500);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.25) {//to area 2
-                                            dst = new Position(450, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.25) {//to area 3
-                                            dst = new Position(55, 105);
-                                            cycle.add(dst);
-                                        } else if (Math.random() <= 0.25) {//to area 0
-                                            dst = new Position(450, 500);
-                                            cycle.add(dst);
-                                        }
-                                    }
-                                    ++movePhase;
-                                } else {
-                                    if (movePhase == 3) {
-                                        maxpause = 180.0;
-                                        for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                            if (Math.random() <= 0.25) {//to area 2
-                                                dst = new Position(450, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.25) {//to area 3
-                                                dst = new Position(55, 105);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.25) {//to area 0
-                                                dst = new Position(450, 500);
-                                                cycle.add(dst);
-                                            } else if (Math.random() <= 0.25) {//to area 1
-                                                dst = new Position(45, 500);
-                                                cycle.add(dst);
-                                            }
-                                        }
-                                        ++movePhase;
-                                    } else {
-                                        if (movePhase == 4) {
-                                            maxpause = 180;
-                                            for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                if (Math.random() <= 0.25) {//to area 3
-                                                    dst = new Position(55, 105);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.25) {//to area 0
-                                                    dst = new Position(450, 500);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.25) {//to area 1
-                                                    dst = new Position(55, 500);
-                                                    cycle.add(dst);
-                                                } else if (Math.random() <= 0.25) {//to area 2
-                                                    dst = new Position(450, 105);
-                                                    cycle.add(dst);
-                                                }
-                                            }
-                                            ++movePhase;
-                                        } else {
-                                            if (movePhase == 5) {
-                                                maxpause = 180;
-                                                for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                    if (Math.random() <= 0.25) {//to area 0
-                                                        dst = new Position(450, 500);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.25) {//to area 1
-                                                        dst = new Position(55, 500);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.25) {//to area 2
-                                                        dst = new Position(450, 105);
-                                                        cycle.add(dst);
-                                                    } else if (Math.random() <= 0.25) {//to area 3
-                                                        dst = new Position(55, 105);
-                                                        cycle.add(dst);
-                                                    }
-                                                }
-                                                movePhase++;
-                                            } else {
-                                                if (movePhase == 6) {
-                                                    maxpause = 500;
-                                                    for (int i = (area.allways.get(PosInList)).size(); i >= 0; i--) {
-                                                        if (Math.random() <= 0.7) {//to area 3
-                                                            dst = new Position(55, 105);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 0
-                                                            dst = new Position(450, 500);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 1
-                                                            dst = new Position(55, 500);
-                                                            cycle.add(dst);
-                                                        } else if (Math.random() <= 0.1) {//to area 2
-                                                            dst = new Position(450, 105);
-                                                            cycle.add(dst);
-                                                        }
-                                                    }
-                                                    movePhase = 0;
-                                                }
-                                            }
-                                        }
-
-                                    }
+                            maxpause = 300;
+                            for (int i = 0; i < (area.allways.get(PosInList)).size(); i++) {
+                                if (Math.random() < 0.2) {
+                                    dst = new Position(250, 300);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.4) {//to area 2
+                                    dst = new Position(450, 105);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.6) {//to area 3
+                                    dst = new Position(55, 105);
+                                    cycle.add(dst);
+                                } else if (Math.random() < 0.8) {//to area 0
+                                    dst = new Position(450, 500);
+                                    cycle.add(dst);
+                                } else {//to area 1
+                                    dst = new Position(55, 500);
+                                    cycle.add(dst);
                                 }
                             }
+                            movePhase = 0;
                         }
                     } else { //treatment node
                         maxpause = oldmaxpause;
@@ -1783,7 +1393,7 @@ public class DisasterAreawithProbHybrid extends RandomSpeedBase {
                 System.out.println("Error in " + getInfo().name + ", couldn't determine Movement Cycle");
                 System.exit(0);
         }
-
+        System.out.println("cycle : " + cycle);
         return cycle;
     }
     //initialize visibility graph

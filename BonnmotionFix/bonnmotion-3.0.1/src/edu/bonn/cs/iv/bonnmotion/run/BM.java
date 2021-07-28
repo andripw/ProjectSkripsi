@@ -60,6 +60,8 @@ public class BM {
         "SWIM",
         "TIMM",
         "TLW",
+        "ProbabilityHybrid",
+        "RandomWalkTest",
         };
 
     private final static String APPS_PACK = "edu.bonn.cs.iv.bonnmotion.apps";

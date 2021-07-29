@@ -8,9 +8,6 @@ public class Area {
     Position a;
     Position b;
 
-    public Area() {
-    }
-
     public Area(double x1, double x2, double y1, double y2, int ID) {
         this.a = new Position(x1, y1);
         this.b = new Position(x2, y2);

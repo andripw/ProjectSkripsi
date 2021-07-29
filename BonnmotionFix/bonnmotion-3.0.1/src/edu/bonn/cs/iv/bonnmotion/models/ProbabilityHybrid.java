@@ -15,10 +15,8 @@ import java.util.List;
 public class ProbabilityHybrid extends Scenario {
 
     private static ModuleInfo info;
-    //membuat object area yang tdk bisa diubah
+    //membuat list area yang tdk bisa diubah
     private static List<Area> area = new ArrayList();
-
-    protected double maxpause = 0.0;
 
     static {
         info = new ModuleInfo("ProbabilityHybrid");
@@ -40,12 +38,10 @@ public class ProbabilityHybrid extends Scenario {
 
     private double interval = 1;
 
-    public ProbabilityHybrid(int nodes, double x, double y, double duration, double ignore, long randomSeed, double interval, double mP) {
+    public ProbabilityHybrid(int nodes, double x, double y, double duration, double ignore, long randomSeed, double interval) {
         super(nodes, x, y, duration, ignore, randomSeed);
         this.interval = interval;
-        this.maxpause = mP;
         generate();
-
     }
 
     public ProbabilityHybrid(String[] args) {
@@ -112,74 +108,69 @@ public class ProbabilityHybrid extends Scenario {
         Position pos = null;
         double rand = Math.random();
         switch (cekPosition(currentPos, i).areaID) {//jika node berada di area
-            case 1:
-                maxpause = 120;
+            case 0:
                 if (rand < 0.5) {//50%
-                    pos = area.get(5).generateRandomPos();
-                } else if (rand < 0.7) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else if (rand < 0.8) {//10%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand < 0.9) {//10%
-                    pos = area.get(1).generateRandomPos();
-                } else {//10%
                     pos = area.get(4).generateRandomPos();
+                } else if (rand < 0.7) {//20%
+                    pos = area.get(1).generateRandomPos();
+                } else if (rand < 0.8) {//10%
+                    pos = area.get(2).generateRandomPos();
+                } else if (rand < 0.9) {//10%
+                    pos = area.get(0).generateRandomPos();
+                } else {//10%
+                    pos = area.get(3).generateRandomPos();
+                }
+                break;
+            case 1:
+                if (rand < 0.2) {//20%
+                    pos = area.get(0).generateRandomPos();
+                } else if (rand < 0.4) {//20%
+                    pos = area.get(2).generateRandomPos();
+                } else if (rand < 0.6) {//20%
+                    pos = area.get(3).generateRandomPos();
+                } else if (rand < 0.8) {//20$
+                    pos = area.get(4).generateRandomPos();
+                } else {//20%
+                    pos = area.get(1).generateRandomPos();
                 }
                 break;
             case 2:
-                maxpause = 120;
-                if (rand <= 0.2) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
+                if (rand < 0.4) {//40%
                     pos = area.get(4).generateRandomPos();
-                } else if (rand <= 0.8) {//20$
-                    pos = area.get(5).generateRandomPos();
-                } else {//20%
+                } else if (rand < 0.6) {//20%
+                    pos = area.get(3).generateRandomPos();
+                } else if (rand < 0.8) {//20%
                     pos = area.get(2).generateRandomPos();
+                } else if (rand < 0.9) {//10%
+                    pos = area.get(1).generateRandomPos();
+                } else {//10%
+                    pos = area.get(0).generateRandomPos();
                 }
                 break;
             case 3:
-                maxpause = 120;
-                if (rand < 0.4) {//40%
-                    pos = area.get(5).generateRandomPos();
+                if (rand < 0.2) {//20%
+                    pos = area.get(1).generateRandomPos();
+                } else if (rand < 0.4) {//20%
+                    pos = area.get(0).generateRandomPos();
                 } else if (rand < 0.6) {//20%
                     pos = area.get(4).generateRandomPos();
                 } else if (rand < 0.8) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand < 0.9) {//10%
                     pos = area.get(2).generateRandomPos();
-                } else {//10%
-                    pos = area.get(1).generateRandomPos();
+                } else {//20%
+                    pos = area.get(3).generateRandomPos();
                 }
                 break;
             case 4:
-                maxpause = 120;
-                if (rand <= 0.2) {//20%
+                if (rand < 0.2) {//20%
                     pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
+                } else if (rand < 0.4) {//20%
+                    pos = area.get(0).generateRandomPos();
+                } else if (rand < 0.6) {//20%
                     pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(5).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else {//20%
+                } else if (rand < 0.8) {//20%
                     pos = area.get(4).generateRandomPos();
-                }
-                break;
-            case 5:
-                maxpause = 180;
-                if (rand <= 0.2) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
-                    pos = area.get(5).generateRandomPos();
                 } else {//20%
-                    pos = area.get(4).generateRandomPos();
+                    pos = area.get(3).generateRandomPos();
                 }
                 break;
             default:
@@ -206,41 +197,25 @@ public class ProbabilityHybrid extends Scenario {
     //inisialisasi posisi node di areanya masing-masing
     private Position initialPosition(int a) {
         if (a >= 0 && a <= 9) {
-            return area.get(1).generateRandomPos();
+            return area.get(0).generateRandomPos();
         } else if (a >= 10 && a <= 19) {
-            return area.get(2).generateRandomPos();
+            return area.get(1).generateRandomPos();
         } else if (a >= 20 && a <= 29) {
-            return area.get(3).generateRandomPos();
+            return area.get(2).generateRandomPos();
         } else if (a >= 30 && a <= 39) {
-            return area.get(4).generateRandomPos();
+            return area.get(3).generateRandomPos();
         }
         return null;
     }
 
     //membuat koordinat posisi di sub-area
     private void initArea() {
-        area.add(new Area(400, 500, 500, 400, 1));
-        area.add(new Area(10, 100, 500, 400, 2));
-        area.add(new Area(400, 500, 100, 10, 3));
-        area.add(new Area(10, 100, 100, 10, 4));
-        area.add(new Area(200, 300, 300, 200, 5));
+        area.add(new Area(400, 500, 500, 400, 0));
+        area.add(new Area(10, 100, 500, 400, 1));
+        area.add(new Area(400, 500, 100, 10, 2));
+        area.add(new Area(10, 100, 100, 10, 3));
+        area.add(new Area(200, 300, 300, 200, 4));
     }
-
-    /*
-    //method untuk stop time
-    public double getStop() {
-        for (int i = 0; i < parameterData.nodes.length; i++) {
-            Waypoint last = parameterData.nodes[i].getLastWaypoint();
-            for(Area a : area){
-                if(last.pos.equals(a.areaID)){
-                    maxpause = 120;
-                } else {
-                    maxpause = 0;
-                }
-            }
-        }
-        return maxpause;
-    }*/
 
     protected boolean parseArg(String key, String value) {
         if (key.equals("interval")) {

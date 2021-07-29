@@ -61,6 +61,7 @@ public class BM {
         "TIMM",
         "TLW",
         "ProbabilityHybrid",
+        "ProbabilityHybridCoba",
         "RandomWalkTest",
         };
 

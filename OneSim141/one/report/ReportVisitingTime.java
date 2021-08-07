@@ -52,15 +52,15 @@ public class ReportVisitingTime extends Report implements MovementListener {
         */
 //        a.x <= pos.x && pos.x <= b.x && a.y >= pos.y && pos.y >= b.y
         if ((400.0 <= x && x <= 500.0) && (500.0 >= y && y >= 400.0)) {
-            return "Kelas";
+            return "0";
         } else if ((10.0 <= x && x <= 100.0) && (500.0 >= y && y >= 400.0)) {
-            return "Kantin";
+            return "1";
         } else if ((400.0 <= x && x <= 500.0) && (100.0 >= y && y >= 10.0)) {
-            return "Laboratorium";
+            return "2";
         } else if ((10.0 <= x && x <= 100.0) && (100.0 >= y && y >= 10.0)) {
-            return "Perpustakaan";
+            return "3";
         } else if ((200.0 <= x && x <= 300.0) && (300.0 >= y && y >= 200.0)) {
-            return "Aula";
+            return "4";
         } else {
             return "Tidak";
         }

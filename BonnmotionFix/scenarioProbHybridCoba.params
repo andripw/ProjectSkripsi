@@ -1,0 +1,10 @@
+model=ProbabilityHybridCoba
+ignore=1.0
+randomSeed=15
+x=200.0
+y=200.0
+duration=7200.0
+nn=40
+circular=false
+J=2D
+interval=15.0

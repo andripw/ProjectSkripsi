@@ -114,13 +114,13 @@ public class ProbabilityHybridCoba extends RandomSpeedBase {
         double rand = Math.random();
         switch (cekPosition(currentPos, i).areaID) {//jika node berada di area
             case 0:
-                if (rand < 0.5) {//50%
+                if (rand <= 0.5) {//50%
                     pos = area.get(4).generateRandomPos();
-                } else if (rand < 0.7) {//20%
+                } else if (rand <= 0.7) {//20%
                     pos = area.get(1).generateRandomPos();
-                } else if (rand < 0.8) {//10%
+                } else if (rand <= 0.8) {//10%
                     pos = area.get(2).generateRandomPos();
-                } else if (rand < 0.9) {//10%
+                } else if (rand <= 0.9) {//10%
                     pos = area.get(0).generateRandomPos();
                 } else {//10%
                     pos = area.get(3).generateRandomPos();
@@ -140,13 +140,13 @@ public class ProbabilityHybridCoba extends RandomSpeedBase {
                 }
                 break;
             case 2:
-                if (rand < 0.4) {//40%
+                if (rand <= 0.4) {//40%
                     pos = area.get(4).generateRandomPos();
-                } else if (rand < 0.6) {//20%
+                } else if (rand <= 0.6) {//20%
                     pos = area.get(3).generateRandomPos();
-                } else if (rand < 0.8) {//20%
+                } else if (rand <= 0.8) {//20%
                     pos = area.get(2).generateRandomPos();
-                } else if (rand < 0.9) {//10%
+                } else if (rand <= 0.9) {//10%
                     pos = area.get(1).generateRandomPos();
                 } else {//10%
                     pos = area.get(0).generateRandomPos();

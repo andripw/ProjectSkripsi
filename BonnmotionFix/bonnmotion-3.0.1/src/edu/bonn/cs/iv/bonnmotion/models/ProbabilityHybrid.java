@@ -7,7 +7,6 @@ import edu.bonn.cs.iv.bonnmotion.MobileNode;
 import edu.bonn.cs.iv.bonnmotion.ModuleInfo;
 import edu.bonn.cs.iv.bonnmotion.Position;
 import edu.bonn.cs.iv.bonnmotion.Scenario;
-import edu.bonn.cs.iv.bonnmotion.ScenarioLinkException;
 import edu.bonn.cs.iv.bonnmotion.Waypoint;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class ProbabilityHybrid extends Scenario {
 
     private double interval = 1;
 
-    public ProbabilityHybrid(int nodes, double x, double y, double duration, double ignore, 
+    public ProbabilityHybrid(int nodes, double x, double y, double duration, double ignore,
             long randomSeed, double interval) {
         super(nodes, x, y, duration, ignore, randomSeed);
         this.interval = interval;
@@ -55,11 +54,9 @@ public class ProbabilityHybrid extends Scenario {
         generate();
     }
 
-    public ProbabilityHybrid(String args[], Scenario _pre, Integer _transitionMode) {
+    public ProbabilityHybrid(String args[], Scenario _pre) {
         // we've got a predecessor, so a transition is needed
         predecessorScenario = _pre;
-        transitionMode = _transitionMode.intValue();
-        isTransition = false;
 
         go(args);
     }
@@ -68,20 +65,10 @@ public class ProbabilityHybrid extends Scenario {
         preGeneration();
         for (int i = 0; i < parameterData.nodes.length; i++) {
             parameterData.nodes[i] = new MobileNode();
+//            System.out.println(i);
             double t = 0.0;
-            Position src = null;
-
-            if (isTransition) {
-                try {
-                    Waypoint lastW = transition(predecessorScenario, transitionMode, i);
-                    src = lastW.pos;
-                } catch (ScenarioLinkException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                src = initialPosition(i);
+            Position src = initialPosition(i);
 //                System.out.println("Node ke- " + i + " X : " + src.x + " Y : " + src.y);
-            }
 
             if (!parameterData.nodes[i].add(t, src)) // add source waypoint
             {
@@ -90,8 +77,9 @@ public class ProbabilityHybrid extends Scenario {
 
             while (t < parameterData.duration) {
                 Position dst;
+//                System.out.println("node i : "+i);
                 dst = determineMovement(src, i);
-                
+
                 //report
                 System.out.print(" " + t + " " + i);
                 if ((400.0 <= src.x && src.x <= 500.0) && (500.0 >= src.y && src.y >= 400.0)) {
@@ -151,10 +139,10 @@ public class ProbabilityHybrid extends Scenario {
                 }
                 break;
             case 2:
-                if (rand <= 0.4) {//40%
-                    pos = area.get(4).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
+                if (rand <= 0.2) {//20%
                     pos = area.get(3).generateRandomPos();
+                } else if (rand <= 0.6) {//40%
+                    pos = area.get(4).generateRandomPos();
                 } else if (rand <= 0.8) {//20%
                     pos = area.get(2).generateRandomPos();
                 } else if (rand <= 0.9) {//10%
@@ -199,11 +187,6 @@ public class ProbabilityHybrid extends Scenario {
     private Area cekPosition(Position p, int i) {
         for (Area a : area) {
             if (a.isInsideArea(p)) {
-                return a;
-            }
-        }
-        for (Area a : area) {
-            if (a.isInsideArea(parameterData.nodes[i].getLastWaypoint().pos)) {
                 return a;
             }
         }

@@ -57,7 +57,6 @@ public class ProbabilityHybrid extends Scenario {
     public ProbabilityHybrid(String args[], Scenario _pre) {
         // we've got a predecessor, so a transition is needed
         predecessorScenario = _pre;
-
         go(args);
     }
 
@@ -69,7 +68,6 @@ public class ProbabilityHybrid extends Scenario {
             double t = 0.0;
             Position src = initialPosition(i);
 //                System.out.println("Node ke- " + i + " X : " + src.x + " Y : " + src.y);
-
             if (!parameterData.nodes[i].add(t, src)) // add source waypoint
             {
                 throw new RuntimeException(getInfo().name + ".go: error while adding waypoint (1)");
@@ -111,6 +109,12 @@ public class ProbabilityHybrid extends Scenario {
     private Position determineMovement(Position currentPos, int i) {
         Position pos = null;
         double rand = Math.random();
+        /*revisi
+        for(Area area : area){
+            if(area.isInsideArea(currentPos)){
+                
+            }
+        }*/
         switch (cekPosition(currentPos, i).areaID) {//jika node berada di area
             case 0:
                 if (rand <= 0.5) {//50%

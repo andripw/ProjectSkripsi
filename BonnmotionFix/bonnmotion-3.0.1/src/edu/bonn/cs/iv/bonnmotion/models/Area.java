@@ -1,8 +1,9 @@
 package edu.bonn.cs.iv.bonnmotion.models;
 
 import edu.bonn.cs.iv.bonnmotion.Position;
+import java.awt.Polygon;
 
-public class Area {
+public class Area extends Polygon{
 
     int areaID;
     Position a;

@@ -14,7 +14,9 @@ import java.util.List;
 public class ProbabilityHybrid extends Scenario {
 
     private static ModuleInfo info;
-    //membuat list area yang tdk bisa diubah
+    /**
+     * Create list area from class Area without create the object Area
+     */
     private static List<Area> area = new ArrayList();
 
     static {
@@ -60,14 +62,15 @@ public class ProbabilityHybrid extends Scenario {
         go(args);
     }
 
+    /**
+     * Generate movement from the we make movement
+     */
     public void generate() {
         preGeneration();
         for (int i = 0; i < parameterData.nodes.length; i++) {
             parameterData.nodes[i] = new MobileNode();
-//            System.out.println(i);
             double t = 0.0;
             Position src = initialPosition(i);
-//                System.out.println("Node ke- " + i + " X : " + src.x + " Y : " + src.y);
             if (!parameterData.nodes[i].add(t, src)) // add source waypoint
             {
                 throw new RuntimeException(getInfo().name + ".go: error while adding waypoint (1)");
@@ -75,7 +78,6 @@ public class ProbabilityHybrid extends Scenario {
 
             while (t < parameterData.duration) {
                 Position dst;
-//                System.out.println("node i : "+i);
                 dst = determineMovement(src, i);
 
                 //report
@@ -106,49 +108,50 @@ public class ProbabilityHybrid extends Scenario {
         postGeneration();
     }
 
+    /**
+     * Generate movement by area by generating a random value from each node 
+     * which is then compared with the probability in the area
+     * @param currentPos
+     * @param i
+     * @return 
+     */
     private Position determineMovement(Position currentPos, int i) {
         Position pos = null;
         double rand = Math.random();
-        /*revisi
-        for(Area area : area){
-            if(area.isInsideArea(currentPos)){
-                
-            }
-        }*/
         switch (cekPosition(currentPos, i).areaID) {//jika node berada di area
             case 0:
                 if (rand <= 0.5) {//50%
-                    pos = area.get(4).generateRandomPos();
+                    pos = area.get(0).generateRandomPos();
                 } else if (rand <= 0.7) {//20%
                     pos = area.get(1).generateRandomPos();
                 } else if (rand <= 0.8) {//10%
                     pos = area.get(2).generateRandomPos();
                 } else if (rand <= 0.9) {//10%
-                    pos = area.get(0).generateRandomPos();
+                    pos = area.get(4).generateRandomPos();
                 } else {//10%
                     pos = area.get(3).generateRandomPos();
                 }
                 break;
             case 1:
-                if (rand <= 0.2) {//20%
-                    pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand <= 0.8) {//20$
-                    pos = area.get(4).generateRandomPos();
-                } else {//20%
+                if (rand <= 0.6) {//60%
                     pos = area.get(1).generateRandomPos();
+                } else if (rand <= 0.7) {//10%
+                    pos = area.get(2).generateRandomPos();
+                } else if (rand <= 0.8) {//10%
+                    pos = area.get(3).generateRandomPos();
+                } else if (rand <= 0.9) {//10$
+                    pos = area.get(4).generateRandomPos();
+                } else {//10%
+                    pos = area.get(0).generateRandomPos();
                 }
                 break;
             case 2:
-                if (rand <= 0.2) {//20%
-                    pos = area.get(3).generateRandomPos();
-                } else if (rand <= 0.6) {//40%
-                    pos = area.get(4).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
+                if (rand <= 0.6) {//60%
                     pos = area.get(2).generateRandomPos();
+                } else if (rand <= 0.7) {//10%
+                    pos = area.get(4).generateRandomPos();
+                } else if (rand <= 0.8) {//10%
+                    pos = area.get(3).generateRandomPos();
                 } else if (rand <= 0.9) {//10%
                     pos = area.get(1).generateRandomPos();
                 } else {//10%
@@ -156,28 +159,28 @@ public class ProbabilityHybrid extends Scenario {
                 }
                 break;
             case 3:
-                if (rand <= 0.2) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(4).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else {//20%
+                if (rand <= 0.5) {//50%
                     pos = area.get(3).generateRandomPos();
+                } else if (rand <= 0.7) {//20%
+                    pos = area.get(0).generateRandomPos();
+                } else if (rand <= 0.8) {//10%
+                    pos = area.get(4).generateRandomPos();
+                } else if (rand <= 0.9) {//10%
+                    pos = area.get(2).generateRandomPos();
+                } else {//10%
+                    pos = area.get(1).generateRandomPos();
                 }
                 break;
             case 4:
-                if (rand <= 0.2) {//20%
-                    pos = area.get(2).generateRandomPos();
-                } else if (rand <= 0.4) {//20%
-                    pos = area.get(0).generateRandomPos();
-                } else if (rand <= 0.6) {//20%
-                    pos = area.get(1).generateRandomPos();
-                } else if (rand <= 0.8) {//20%
+                if (rand <= 0.6) {//60%
                     pos = area.get(4).generateRandomPos();
-                } else {//20%
+                } else if (rand <= 0.7) {//10%
+                    pos = area.get(0).generateRandomPos();
+                } else if (rand <= 0.8) {//10%
+                    pos = area.get(1).generateRandomPos();
+                } else if (rand <= 0.9) {//10%
+                    pos = area.get(2).generateRandomPos();
+                } else {//10%
                     pos = area.get(3).generateRandomPos();
                 }
                 break;
@@ -187,7 +190,12 @@ public class ProbabilityHybrid extends Scenario {
         return pos;
     }
 
-    //melakukan pengecekan apakah node berada didalam areanya
+    /**
+     * Check position inside areas
+     * @param p
+     * @param i
+     * @return 
+     */
     private Area cekPosition(Position p, int i) {
         for (Area a : area) {
             if (a.isInsideArea(p)) {
@@ -197,7 +205,11 @@ public class ProbabilityHybrid extends Scenario {
         return null;
     }
 
-    //inisialisasi posisi node di areanya masing-masing
+    /**
+     * Init node position in each area  
+     * @param a
+     * @return 
+     */
     private Position initialPosition(int a) {
         if (a >= 0 && a <= 9) {
             return area.get(0).generateRandomPos();
@@ -211,7 +223,9 @@ public class ProbabilityHybrid extends Scenario {
         return null;
     }
 
-    //membuat koordinat posisi di sub-area
+    /**
+     * Make the coordinates of all the required areas 
+     */
     private void initArea() {
         area.add(new Area(400, 500, 500, 400, 0));
         area.add(new Area(10, 100, 500, 400, 1));
